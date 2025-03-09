@@ -24,6 +24,15 @@ app.get("/test", async (req, res) => {
   res.send("Server is running");
 });
 
+app.get("/api/test-db", async (req, res) => {
+  try {
+    await mongoose.connection.db.admin().ping(); // MongoDB-nin işlədiyini test edir
+    res.send("MongoDB is connected!");
+  } catch (error) {
+    res.status(500).send("MongoDB connection failed!");
+  }
+});
+
 // MongoDB bağlantısını qur
 ConnectDB()
   .then(() => console.log("✅ MongoDB bağlantısı uğurla quruldu"))
