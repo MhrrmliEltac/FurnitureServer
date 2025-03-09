@@ -15,25 +15,24 @@ app.use(express.json());
 app.use(cors({ origin: "*", methods: ["GET", "POST", "PUT", "DELETE"] }));
 app.use(bodyParser.json());
 
+// Router-lər
+app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/project", projectRoutes);
+app.use("/api", emailRoutes);
+
 // MongoDB bağlantısını qur
-const startServer = async () => {
-  try {
-    await ConnectDB(); // MongoDB-yə bağlanır
+ConnectDB()
+  .then(() => console.log("✅ MongoDB bağlantısı uğurla quruldu"))
+  .catch((err) => console.error("❌ MongoDB bağlantısı alınmadı:", err));
 
-    // Router-lər
-    app.use("/api/users", userRoutes);
-    app.use("/api/products", productRoutes);
-    app.use("/api/project", projectRoutes);
-    app.use("/api", emailRoutes);
+// **Vercel üçün export**
+module.exports = app;
 
-    // Serveri işə sal
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-      console.log(`✅ Server http://localhost:${PORT} ünvanında işləyir`);
-    });
-  } catch (err) {
-    console.error("Server başladılarkən xəta:", err);
-  }
-};
-
-startServer();
+// **Əgər lokal işləyirsə, serveri başlat**
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`✅ Server http://localhost:${PORT} ünvanında işləyir`);
+  });
+}
