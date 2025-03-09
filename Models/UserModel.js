@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-
+const bcrypt = require("bcryptjs");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -13,17 +12,18 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Parol hash etmək (bcrypt əvəzinə bcryptjs istifadə edirik)
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+    this.password = await bcrypt.hash(this.password, 10); // bcrypt.genSalt(10) olmadan
     next();
   } catch (error) {
     next(error);
   }
 });
 
+// Parolu müqayisə etmək
 UserSchema.methods.comparePassword = async function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
