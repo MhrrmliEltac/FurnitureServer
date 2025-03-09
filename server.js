@@ -20,6 +20,9 @@ app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/project", projectRoutes);
 app.use("/api", emailRoutes);
+app.get("/test", async (req, res) => {
+  res.send("Server is running");
+});
 
 // MongoDB bağlantısını qur
 ConnectDB()
