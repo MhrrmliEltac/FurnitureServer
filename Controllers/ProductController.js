@@ -138,8 +138,8 @@ exports.updateProduct = async (req, res) => {
 
     const updatedProduct = await Product.findByIdAndUpdate(
       productId,
-      updateData,
-      { new: true }
+      { $set: updateData }, // Məlumatları düzgün yenilə
+      { new: true, runValidators: true } // Yenilənmiş məlumatları qaytar, validasiyanı işə sal
     );
 
     if (!updatedProduct) {

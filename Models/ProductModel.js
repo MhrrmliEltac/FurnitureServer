@@ -11,15 +11,21 @@ const productSchema = new mongoose.Schema(
     structureColor: { type: [String] }, // Struktur rəngi
     material: { type: [String] }, // Material növləri
     size: { type: [String] }, // Ölçü variantları
+    dimensions: {
+      width: { type: String },
+      depth: { type: String },
+      height: { type: String },
+      seatHeight: { type: String },
+    },
+    style: { type: [String] }, // Dizayn stilləri (məsələn, Modern, Scandinavian)
     images: { type: [String], required: true }, // Şəkillərin URL-ləri
     category: { type: String, required: true }, // Kategoriya (məs: Table, Chair)
     subCategory: { type: String }, // Alt-kategoriya (məs: Living Room Table)
     isPopular: { type: Boolean, default: false }, // Populyar məhsul olub-olmaması
     isOnSale: { type: Boolean, default: false }, // Endirimdə olub-olmaması
     stock: { type: Number, default: 0 },
-    createdAt: { type: Date, default: Date.now },
   },
-  { timestamps: true }
+  { timestamps: true } // `createdAt` və `updatedAt` avtomatik əlavə edilir
 );
 
 const Product = mongoose.model("Product", productSchema);
