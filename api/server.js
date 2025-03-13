@@ -1,12 +1,12 @@
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
-const ConnectDB = require("./Config/MongoDbConnect");
-const userRoutes = require("./Routers/authRoute");
-const productRoutes = require("./Routers/ProductRoute");
-const projectRoutes = require("./Routers/ProjectRoute");
-const emailRoutes = require("./Routers/EmailRoute");
-const viewedRoutes = require("./Routers/RecentlyViewedRoute");
+const ConnectDB = require("../Config/MongoDbConnect");
+const userRoutes = require("../Routers/authRoute");
+const productRoutes = require("../Routers/ProductRoute");
+const projectRoutes = require("../Routers/ProjectRoute");
+const emailRoutes = require("../Routers/EmailRoute");
+const viewedRoutes = require("../Routers/RecentlyViewedRoute");
 const bodyParser = require("body-parser");
 
 const allowedOrigins = [
