@@ -23,10 +23,11 @@ app.use(express.json());
 app.use(
   cors({
     origin: function (origin, callback) {
+      console.log("🟡 Incoming Origin:", origin); // Log əlavə edək
       if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
+        callback(null, origin); // Burada `true` yox, `origin` qaytarırıq
       } else {
-        console.log("origin", origin);
+        console.log("❌ Blocked Origin:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
@@ -35,6 +36,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 app.use(bodyParser.json());
 
