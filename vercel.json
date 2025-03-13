@@ -1,17 +1,17 @@
 {
   "version": 2,
   "functions": {
-    "api/server.js": {
-      "runtime": "nodejs22.x"
+    "api/*.php": {
+      "runtime": "now-php@1.0.0"
     }
   },
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/server.js",
+      "src": "/(.*)",
+      "dest": "server.js",
       "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       "headers": {
-        "Access-Control-Allow-Origin": "https://furnite-ui.vercel.app",
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
         "Access-Control-Allow-Credentials": "true"
