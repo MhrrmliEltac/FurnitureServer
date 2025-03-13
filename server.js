@@ -20,22 +20,26 @@ const app = express();
 app.use(express.json());
 // Buraya frontend URL-nı əlavə et
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      console.log("🟡 Incoming Origin:", origin); // Log əlavə edək
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, origin); // Burada `true` yox, `origin` qaytarırıq
-      } else {
-        console.log("❌ Blocked Origin:", origin);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      "https://furnite-ui.vercel.app",
+      "http://localhost:5173",
+      "https://furniture-server-theta.vercel.app",
+    ];
+
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, origin); // Düzgün origin qaytarırıq
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 
