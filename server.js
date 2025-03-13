@@ -9,10 +9,7 @@ const emailRoutes = require("./Routers/EmailRoute");
 const viewedRoutes = require("./Routers/RecentlyViewedRoute");
 const bodyParser = require("body-parser");
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://furnite-ui.vercel.app",
-];
+const allowedOrigins = ["https://furnite-ui.vercel.app"];
 
 const app = express();
 
@@ -36,7 +33,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
 
 app.use(bodyParser.json());
 
