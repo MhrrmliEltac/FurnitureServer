@@ -9,17 +9,31 @@ const emailRoutes = require("./Routers/EmailRoute");
 const viewedRoutes = require("./Routers/RecentlyViewedRoute");
 const bodyParser = require("body-parser");
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://furnite-ui.vercel.app",
+];
+
 const app = express();
 
 // Middleware-lər
 app.use(express.json());
+// Buraya frontend URL-nı əlavə et
+
 app.use(
   cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+
 app.use(bodyParser.json());
 
 // Router-lər
