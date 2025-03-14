@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const ConnectDB = require("./Config/MongoDbConnect");
-const userRoutes = require("./Routers/authRoute");
+// const userRoutes = require("./Routers/authRoute");
 const productRoutes = require("./Routers/ProductRoute");
 const projectRoutes = require("./Routers/ProjectRoute");
 const emailRoutes = require("./Routers/EmailRoute");
@@ -15,30 +15,17 @@ const app = express();
 app.use(express.json());
 // Buraya frontend URL-nı əlavə et
 
-const allowedOrigins = [
-  "https://furnite-ui.vercel.app", 
-  "http://localhost:5173",
-];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("CORS Blocked"));
-      }
-    },
-    credentials: true, // ✅ Token və cookies göndərmək üçün
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"], // ✅ Token authentication üçün
   })
 );
 
 app.use(bodyParser.json());
 
 // Router-lər
-app.use("/api/users", userRoutes);
+// app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/project", projectRoutes);
 app.use("/api/viewed", viewedRoutes);

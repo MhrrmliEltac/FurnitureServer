@@ -75,16 +75,6 @@ exports.createProduct = async (req, res) => {
 // ✅ Bütün Məhsulları Gətir
 exports.getAllProducts = async (req, res) => {
   try {
-    res.setHeader(
-      "Access-Control-Allow-Origin",
-      "https://furnite-ui.vercel.app"
-    );
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
-
     const products = await Product.find();
     return res.json(products);
   } catch (error) {
