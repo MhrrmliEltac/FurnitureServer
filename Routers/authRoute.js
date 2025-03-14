@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // JavaScript tərəfindən oxuna bilməz
       secure: process.env.NODE_ENV === "production", // Yalnız HTTPS-də işləsin
-      sameSite: "Strict",
+      sameSite: "None",
       maxAge: 3600000, // 1 saat müddətində
     });
 
