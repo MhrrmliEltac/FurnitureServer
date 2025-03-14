@@ -15,8 +15,18 @@ const app = express();
 app.use(express.json());
 // Buraya frontend URL-nı əlavə et
 
-app.use(cors({ origin: "*", methods: ["GET", "POST", "PUT", "DELETE"] }));
+const allowedOrigins = [
+  "https://furniture-server-theta.vercel.app", // Vercel frontend URL-in
+];
 
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"], // Authentication üçün
+  })
+);
 app.use(bodyParser.json());
 
 // Router-lər
