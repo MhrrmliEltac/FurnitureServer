@@ -8,16 +8,18 @@ const projectRoutes = require("./Routers/ProjectRoute");
 const emailRoutes = require("./Routers/EmailRoute");
 const viewedRoutes = require("./Routers/RecentlyViewedRoute");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
 // Middleware-lər
 app.use(express.json());
-// Buraya frontend URL-nı əlavə et
+app.use(cookieParser()); // Cookie-ləri işlətmək üçün ✅
 
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:5173", "https://furnite-ui.vercel.app"], // İcazə verilən frontend-lər ✅
+    credentials: true, // Cookie-lərin frontend-ə göndərilməsinə icazə ✅
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
