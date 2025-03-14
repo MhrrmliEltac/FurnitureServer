@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://furnite-ui.vercel.app/",
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
