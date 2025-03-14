@@ -16,8 +16,8 @@ app.use(express.json());
 // Buraya frontend URL-nı əlavə et
 
 const allowedOrigins = [
-  "https://furnite-ui.vercel.app", // ✅ Frontend URL-ni yaz
-  "http://localhost:5173", // ✅ Lokal React inkişaf mühiti
+  "https://furnite-ui.vercel.app", 
+  "http://localhost:5173",
 ];
 
 app.use(
