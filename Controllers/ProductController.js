@@ -75,6 +75,16 @@ exports.createProduct = async (req, res) => {
 // ✅ Bütün Məhsulları Gətir
 exports.getAllProducts = async (req, res) => {
   try {
+    res.setHeader(
+      "Access-Control-Allow-Origin",
+      "https://furnite-ui.vercel.app"
+    );
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization"
+    );
+
     const products = await Product.find();
     return res.json(products);
   } catch (error) {
@@ -122,7 +132,7 @@ exports.getPopularProduct = async (req, res) => {
 // ✅ Endirimli məhsulu gətir
 exports.getSaleProduct = async (req, res) => {
   try {
-    const saleProducts = Product.find({ isOnSale: true });
+    const saleProducts = await Product.find({ isOnSale: true });
     res.json(saleProducts);
   } catch (error) {
     console.log(error);

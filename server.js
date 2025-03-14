@@ -16,17 +16,25 @@ app.use(express.json());
 // Buraya frontend URL-nı əlavə et
 
 const allowedOrigins = [
-  "https://furniture-server-theta.vercel.app", // Vercel frontend URL-in
+  "https://furnite-ui.vercel.app", // ✅ Frontend URL-ni yaz
+  "http://localhost:5173", // ✅ Lokal React inkişaf mühiti
 ];
 
 app.use(
   cors({
-    origin: allowedOrigins,
-    credentials: true,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS Blocked"));
+      }
+    },
+    credentials: true, // ✅ Token və cookies göndərmək üçün
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"], // Authentication üçün
+    allowedHeaders: ["Content-Type", "Authorization"], // ✅ Token authentication üçün
   })
 );
+
 app.use(bodyParser.json());
 
 // Router-lər
