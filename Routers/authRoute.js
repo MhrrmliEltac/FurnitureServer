@@ -13,7 +13,6 @@ const generateToken = (user) => {
 // Register route
 router.post("/register", async (req, res) => {
   const { userName, email, phoneNumber, password, confirmPassword } = req.body;
-  console.log(password, confirmPassword);
 
   if (password !== confirmPassword) {
     return res.status(400).json({ message: "Passwords do not match." });
