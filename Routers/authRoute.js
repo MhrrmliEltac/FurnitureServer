@@ -61,12 +61,7 @@ router.post("/login", async (req, res) => {
     const token = generateToken(user);
 
     // Tokeni cookie olaraq göndəririk
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "None",
-      maxAge: 3600000,
-    });
+    res.cookie("token", token);
 
     return res.status(200).json({ message: "Login successful" });
   } catch (error) {
@@ -89,11 +84,7 @@ router.get("/profile", (req, res) => {
 
 // Logout route (Cookie silmək üçün)
 router.post("/logout", (req, res) => {
-  res.clearCookie("token", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "None",
-  });
+  res.clearCookie("token");
   res.json({ message: "Logged out successfully" });
 });
 
