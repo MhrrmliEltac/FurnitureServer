@@ -89,7 +89,11 @@ router.get("/profile", (req, res) => {
 
 // Logout route (Cookie silmək üçün)
 router.post("/logout", (req, res) => {
-  res.clearCookie("token"); // Cookie-i silirik
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "None",
+  });
   res.json({ message: "Logged out successfully" });
 });
 
