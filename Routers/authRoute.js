@@ -75,13 +75,21 @@ router.post("/login", async (req, res) => {
 });
 
 // Protected route
-router.get("/profile", (req, res) => {
-  const token = req.cookies.token; // Cookie-dən token oxuyuruq
+// Protected route - İstifadəçi məlumatlarını qaytarır
+router.get("/profile", async (req, res) => {
+  const token = req.cookies.token; // Tokeni cookie-dən götürürük
   if (!token) return res.status(401).json({ message: "Access denied" });
 
   try {
+    // Tokeni decode edirik
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    res.json({ message: "Welcome to your profile", user: decoded });
+
+    // Bazadan tam istifadəçi məlumatlarını alırıq
+    const user = await User.findById(decoded.id).select("-password"); // Parolu çıxırıq
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json({ user });
   } catch (err) {
     res.status(401).json({ message: "Invalid token" });
   }
