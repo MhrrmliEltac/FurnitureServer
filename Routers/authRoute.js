@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 // Token yaratmaq funksiyası
 const generateToken = (user) => {
   return jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
+    expiresIn: "24h",
   });
 };
 
@@ -74,7 +74,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Protected route
 // Protected route - İstifadəçi məlumatlarını qaytarır
 router.get("/profile", async (req, res) => {
   const token = req.cookies.token; // Tokeni cookie-dən götürürük
