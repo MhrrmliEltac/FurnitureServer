@@ -1,20 +1,15 @@
 const express = require("express");
-require("dotenv").config();
 const cors = require("cors");
 const ConnectDB = require("./Config/MongoDbConnect");
-const userRoutes = require("./Routers/authRoute");
-const productRoutes = require("./Routers/ProductRoute");
-const projectRoutes = require("./Routers/ProjectRoute");
-const emailRoutes = require("./Routers/EmailRoute");
-const viewedRoutes = require("./Routers/RecentlyViewedRoute");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+require("dotenv").config();
 
 const app = express();
 
 // Middleware-lər
 app.use(express.json());
-app.use(cookieParser()); // Cookie-ləri işlətmək üçün ✅
+app.use(cookieParser());
 
 app.use(
   cors({
@@ -26,12 +21,20 @@ app.use(
 
 app.use(bodyParser.json());
 
+const userRoutes = require("./Routers/authRoute");
+const productRoutes = require("./Routers/ProductRoute");
+const projectRoutes = require("./Routers/ProjectRoute");
+const emailRoutes = require("./Routers/EmailRoute");
+const viewedRoutes = require("./Routers/RecentlyViewedRoute");
+const favoriteRoutes = require("./Routers/FavoriteRouter");
+
 // Router-lər
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/project", projectRoutes);
 app.use("/api/viewed", viewedRoutes);
 app.use("/api", emailRoutes);
+app.use("/api/favorite", favoriteRoutes);
 
 ConnectDB();
 
